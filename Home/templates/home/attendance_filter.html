@@ -1,0 +1,72 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block css %}
+ <link rel="stylesheet" href="{% static 'css/styleindex.css'%}">
+{% endblock %}
+{% block content %}
+<main role="main" class="container my-4">
+
+    <h3>Filter Attendance</h3>
+    <form method="GET" action=".">
+      <div class="form-row">
+          <div class="form-group col-12">
+              <div class="input-group">
+                  <input class="form-control py-2 border-right-0 border" type="search" name="name" placeholder="Name....." {% if nameq is not None %}value="{{nameq}}"{% endif %}/>
+                  <span class="input-group-append">
+                      <div class="input-group-text bg-transparent">
+                          <i class="fa fa-search"></i>
+                      </div>
+                  </span>
+              </div>
+          </div>        
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12">
+            <div class="input-group">
+                <input class="form-control py-2 border-right-0 border" type="search" name="roll" placeholder="Roll No....." {% if rollq is not None %}value="{{rollq}}"{% endif %}/>
+                <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </span>
+            </div>
+        </div>        
+    </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-2 col-lg-2">
+          <input type="date" class="form-control" id="publishDateMax" name="date" {% if dateq is not None %}value="{{dateq}}"{% endif %}>
+        </div>
+        
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</main>
+
+<table class="index my-3">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Roll no.</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for q in qs %}
+      <tr>
+        <td data-label="Student name">{{q.name}}</td>
+        <td data-label="Roll no.">{{q.roll}}</td>
+        <td data-label="Subject">{{q.sub}}</td>
+        <td data-label="Date">{{q.date}}</td>
+      </tr>
+      {% empty %}
+      <div class="text-center">
+        Enter filters, with your data to see your attendance.
+      </div>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
